@@ -15,4 +15,9 @@ RSpec.describe 'ChangeWithin::Base' do
     $x = 0
     expect { changer }.to change_within(3) { $x }.by(10)
   end
+
+  it "waites" do
+    $x = 0
+    expect { changer }.to change { $x }.wait(3).by(10)
+  end
 end
