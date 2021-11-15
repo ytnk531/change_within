@@ -1,8 +1,5 @@
 # ChangeWithin
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/change_within`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Expectation with timeout for RSpec's `change`.
 
 ## Installation
 
@@ -22,7 +19,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+def changer
+  Thread.new do
+    sleep 2
+    $x = 10
+  end
+end
+
+it "waites change" do
+  $x = 0
+  expect { changer }.to change_within(3) { $x }.by(10)
+end
+
+it "waites" do
+  $x = 0
+  expect { changer }.to change { $x }.wait(3).by(10)
+end
+```
+
 
 ## Development
 
