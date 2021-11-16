@@ -1,29 +1,8 @@
 require 'timeout'
+require 'rspec/matchers'
+require 'rspec/matchers/built_in/change'
 
 module ChangeWithin
-  class Base < RSpec::Matchers::BuiltIn::Change
-    private
-
-    def initialize(timeout, interval, receiver=nil, message=nil, &block)
-      @timeout = timeout
-      @interval = interval
-      @receiver = receiver
-      @message = message
-      @block = block
-    end
-
-    def change_details
-      @change_details ||= TimeoutChangeDetails.new(
-        matcher_name,
-        @timeout,
-        @interval,
-        @receiver,
-        @message,
-        &@block
-      )
-    end
-  end
-
   class TimeoutChangeDetails < RSpec::Matchers::BuiltIn::ChangeDetails
     def initialize(matcher_name, timeout, interval, receiver=nil, message=nil, &block)
       if receiver && !message
