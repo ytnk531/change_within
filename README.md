@@ -27,12 +27,12 @@ def changer
   end
 end
 
-it "waites change" do
+it "waits change with `change_within`" do
   $x = 0
   expect { changer }.to change_within(3) { $x }.by(10)
 end
 
-it "waites" do
+it "waits change with `wait`" do
   $x = 0
   expect { changer }.to change { $x }.wait(3).by(10)
 end
